@@ -16,11 +16,6 @@ public class MainApp {
 
       UserService userService = context.getBean(UserService.class);
 
-//      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
-//      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-//      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-//      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
-
       Car car1 = new Car("BMW", 1);
       Car car2 = new Car("MB", 2);
       Car car3 = new Car("VW", 2);
@@ -31,27 +26,25 @@ public class MainApp {
       userService.add(new User("User3", "Lastname3", "user3@mail.ru", car3));
       userService.add(new User("User4", "Lastname4", "user4@mail.ru", car4));
 
-      List<User> users = userService.listUsers();
-      for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
+      List<User> people = userService.listUsers();
+      for (User user : people) {
+         System.out.println("Id = "+ user.getId());
+         System.out.println("First Name = "+ user.getFirstName());
+         System.out.println("Last Name = "+ user.getLastName());
+         System.out.println("Email = "+ user.getEmail());
          System.out.println();
       }
 
-//      List<User> usersByCar = userService.getUserByCarModelAndSeries("MB", 2);
-//      for (User user : usersByCar) {
-//         System.out.println("Id = "+user.getId());
-//         System.out.println("First Name = "+user.getFirstName());
-//         System.out.println("Last Name = "+user.getLastName());
-//         System.out.println("Email = "+user.getEmail());
-//         System.out.println();
-//      }
-//
-//      if (usersByCar.size() == 0) {
-//         System.out.println("Нет юзеров с такой машиной");
-//      }
+      User user = userService.getUserByCarModelAndSeries("BMW", 1);
+      if (user == null) {
+         System.out.println("Нет юзера с такой машиной");
+      } else {
+         System.out.println("Id = "+ user.getId());
+         System.out.println("First Name = "+ user.getFirstName());
+         System.out.println("Last Name = "+ user.getLastName());
+         System.out.println("Email = "+ user.getEmail());
+         System.out.println();
+      }
 
       context.close();
    }

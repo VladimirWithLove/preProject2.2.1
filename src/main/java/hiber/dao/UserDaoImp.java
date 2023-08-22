@@ -6,9 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -32,16 +30,12 @@ public class UserDaoImp implements UserDao {
 
    @Override
    @SuppressWarnings("unchecked")
-   public List<User> getUserByCarModelAndSeries(String model, int series) {
+   public User getUserByCarModelAndSeries(String model, int series) {
       TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car " +
               "where model = :model and series = :series");
       query.setParameter("model", model);
       query.setParameter("series", series);
-      List<Car> cars = query.getResultList();
-      List<User> result = new ArrayList<>();
-      for (Car car : cars) {
-         result.add(car.getUser());
-      }
-      return result;
+      Car car = query.getSingleResult();
+      return car.getUser();
    }
 }
